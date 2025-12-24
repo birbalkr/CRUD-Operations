@@ -16,16 +16,19 @@ public class JobServiceImpl implements JobService {
     private Long nextId=1L;
 
 
+
     @Override
     public List<Job> findAll() {
         return jobs;
     }
+
 
     @Override
     public void createJob(Job job) {
         job.setId(nextId++);
         jobs.add(job);
     }
+
 
     @Override
     public Job getJobById(Long id) {
@@ -36,5 +39,22 @@ public class JobServiceImpl implements JobService {
         }
         return null;
     }
+
+
+    @Override
+    public Job getDeleteJob(Long id) {
+        for(Job job: jobs){
+            if(job.getId().equals(id)){
+                job.getId();
+                job.getTitle();
+                job.getDescription();
+                job.getMinSalary();
+                job.getMaxSalary();
+                job.getLocation();
+            }
+        }
+        return null;
+    }
+
 
 }
