@@ -19,10 +19,11 @@ private JobService jobService;
         return ResponseEntity.ok(jobService.findAll());
     }
 
+
     @PostMapping("/jobs")
     public ResponseEntity<String> createJob(@RequestBody Job job){
         jobService.createJob(job);
-        return new ResponseEntity<>("Job added successfully", HttpStatus.CREATED);
+        return new ResponseEntity<>("Job added successfully", HttpStatus.OK);
     }
 
 
@@ -35,10 +36,19 @@ private JobService jobService;
     }
 
     @DeleteMapping("/jobs/{id}")
-    public ResponseEntity<Job> getDeleteJob(@PathVariable Long id){
-        Job job = jobService.getDeleteJob(id);
-        if (job != null)
-            return new ResponseEntity<>(job, HttpStatus.OK);
+    public ResponseEntity<String> getDeleteJob(@PathVariable Long id){
+        boolean deleted =jobService.getDeleteJob(id);
+        if (deleted)
+            return new ResponseEntity<>("Job Delete Successfully", HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
+    @PutMapping("/jobs/{id}")
+    public ResponseEntity<String> updateJob(@PathVariable Long id,
+                                         @RequestBody Job updatedJob){
+        boolean updated =jobService.updateJob(id, updatedJob);
+        if (updated)
+            return new ResponseEntity<>("Job Deleted Successfully", HttpStatus.OK);
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
