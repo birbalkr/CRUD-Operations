@@ -1,9 +1,10 @@
 package com.birbalkr.firstjobAppliction.Job;
 
+import com.birbalkr.firstjobAppliction.company.Company;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "jobTable")
+//@Table(name = "jobTable")
 public class Job {
 
     @Id
@@ -14,6 +15,10 @@ public class Job {
     private String minSalary;
     private String maxSalary;
     private String location;
+
+
+    @ManyToOne
+    private Company company;
 
     public Job() {
     }
@@ -31,6 +36,13 @@ public class Job {
         this.location = location;
     }
 
+    public Company getCompany() {
+        return company;
+    }
+
+    public void setCompany(Company company) {
+        this.company = company;
+    }
 
     public Long getId() {
         return id;
