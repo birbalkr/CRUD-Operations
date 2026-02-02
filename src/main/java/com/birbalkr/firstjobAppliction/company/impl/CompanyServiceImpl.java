@@ -1,6 +1,6 @@
 package com.birbalkr.firstjobAppliction.company.impl;
 
-import com.birbalkr.firstjobAppliction.Job.Job;
+
 import com.birbalkr.firstjobAppliction.company.Company;
 import com.birbalkr.firstjobAppliction.company.CompanyRepository;
 import com.birbalkr.firstjobAppliction.company.CompanyService;
@@ -40,7 +40,23 @@ private CompanyRepository companyRepository;
     }
 
     @Override
+    public Company getCompanyById(Long id) {
+        return companyRepository.findById(id).orElse(null);
+    }
+
+    @Override
     public void createCompany(Company company) {
         companyRepository.save(company);
+    }
+
+    @Override
+    public boolean getDeleteCompany(Long id) {
+
+        if (companyRepository.existsById(id)){
+            companyRepository.deleteById(id);
+            return true;
+        }else {
+            return false;
+        }
     }
 }

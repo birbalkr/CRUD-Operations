@@ -27,10 +27,26 @@ public class CompanyController {
         companyService.updateCompany(company, id);
         return new ResponseEntity<>("Company Updated successfuly", HttpStatus.OK);
     }
+    @GetMapping("/{id}")
+    public ResponseEntity<Company> getCompanyById(@PathVariable Long id){
+        Company company= companyService.getCompanyById(id);
+        if(company!=null)
+            return new ResponseEntity<>(company,HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
 
     @PostMapping
     public ResponseEntity<String> addCompany(@RequestBody Company company){
         companyService.createCompany(company);
         return new ResponseEntity<>("Company added successfully",HttpStatus.CREATED);
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> getDeleteCompany(@PathVariable Long id){
+        boolean delete = companyService.getDeleteCompany(id);
+        if (delete)
+            return new ResponseEntity<>("Company Delete Successfuly",HttpStatus.OK);
+        return new ResponseEntity<>("Company Not Found",HttpStatus.NOT_FOUND);
+    }
+
 }
